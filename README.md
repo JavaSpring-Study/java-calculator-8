@@ -9,4 +9,4 @@
     - 예시: `"//;\n1;2;3"` → 6
 
 ### 3. 숫자 유효성 검증
-- [ ] 숫자가 아닌 값이 포함된 경우 `IllegalArgumentException`을 발생시키고 프로그램을 종료한다.
+- [x] 숫자가 아닌 값이 포함된 경우 `IllegalArgumentException`을 발생시키고 프로그램을 종료한다.
