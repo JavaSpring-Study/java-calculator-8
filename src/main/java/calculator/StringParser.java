@@ -6,12 +6,16 @@ import java.util.List;
 public class StringParser {
 
     private final DelimiterExtractor delimiterExtractor;
+    private final Validator validator;
 
     public StringParser() {
         this.delimiterExtractor = new DelimiterExtractor();
+        this.validator = new Validator();
     }
 
     public List<Integer> parse(String input) {
+        validator.validateInput(input);
+
         if (input.isEmpty()) {
             return new ArrayList<>();
         }
@@ -27,6 +31,7 @@ public class StringParser {
         String[] tokens = input.split(delimiter);
 
         for (String token : tokens) {
+            validator.validateNumber(token);
             numbers.add(Integer.parseInt(token));
         }
 
