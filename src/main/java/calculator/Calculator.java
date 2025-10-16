@@ -1,12 +1,17 @@
 package calculator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Calculator {
 
+    private final StringParser stringParser;
+
+    public Calculator() {
+        stringParser = new StringParser();
+    }
+
     public int calculate(String input) {
-        List<Integer> numbers = new ArrayList<>();
+        List<Integer> numbers = stringParser.parse(input);
         return sum(numbers);
     }
 
