@@ -1,6 +1,6 @@
 package calculator.message;
 
-public abstract class Message {
+public abstract class SuccessMessage {
 
 	//입출력 관련
 	public final static String INPUT_MESSAGE = "덧셈할 문자열을 입력해 주세요";
