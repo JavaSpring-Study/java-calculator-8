@@ -5,6 +5,7 @@ public class StringSplitter {
         if (!Character.isDigit(input.charAt(0))) {
             String delimiter;
             delimiter = String.valueOf(input.charAt(2));
+            input = input.replaceAll("^.*\\\\n", "");
             String customRegex = "[" + delimiter + ",:]";
             return input.split(customRegex);
         }
