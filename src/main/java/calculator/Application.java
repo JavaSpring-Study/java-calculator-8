@@ -4,6 +4,7 @@ public class Application {
     public static void main(String[] args) {
         // TODO: 프로그램 구현
         String input = InputView.readInput();
-        StringSplitter.splitInput(input);
+        String[] splitInput = StringSplitter.splitInput(input);
+        int[] numbers = NumberParser.changeNumber(splitInput);
     }
 }
