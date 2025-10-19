@@ -114,8 +114,7 @@ src
    ├─ model
    │   ├─ calculator                  # 문자열 파싱 및 합산 로직
    │   │   ├─ Calculator.java         # 계산 로직(덧셈)
-   │   │   ├─ Result.java             # 계산 결과를 값 객체로 캡슐화
-   │   │   └─ Token.java              # 파싱된 숫자 토큰을 캡슐화
+   │   │   └─ Result.java             # 계산 결과를 값 객체로 캡슐화
    │   ├─ parser
    │   │   ├─ DelimiterParser.java    # 기본/커스텀 구분자 추출
    │   │   ├─ NumberParser.java       # 문자열 파싱, 숫자 배열로 변환
@@ -127,3 +126,15 @@ src
        ├─ Constants.java              # 기본 구분자, 정규식 패턴 등의 상수
        └─ ExceptionMessages.java      # 예외 메시지
 ```
+
+---
+## 4. 품질 요구사항
+
+- **코드 컨벤션 준수**
+  - Java Style Guide 
+  - Git Commit Convention
+- **단일 책임 원칙 준수**
+- **예외 명세화**
+  - ExceptionMessages를 도입해 예외 메시지를 상수로 관리
+  - 하드코딩된 메시지를 제거하여 유지보수성과 일관성 강화
+
