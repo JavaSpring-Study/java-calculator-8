@@ -17,6 +17,8 @@ public class DelimiterParser {
      * @return 구분자 목록과 본문을 담은 DelimiterParseResult
      */
     public static DelimiterParseResult parse(String input) {
+        input = input.replace("\\n", "\n");
+
         if (!input.startsWith("//")) {
             // 기본 구분자만 사용하는 경우
             return new DelimiterParseResult(DEFAULT_DELIMITERS, input);

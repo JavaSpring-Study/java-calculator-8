@@ -20,10 +20,5 @@ public class Validator {
         if (input.isEmpty()) {
             return;
         }
-
-        // 커스텀 구분자 형식 검사: "//"로 시작했는데 "\n"이 없는 경우
-        if (input.startsWith("//") && !input.contains("\n")) {
-            throw new IllegalArgumentException("커스텀 구분자 형식이 올바르지 않습니다.");
-        }
     }
 }

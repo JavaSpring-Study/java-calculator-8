@@ -25,10 +25,4 @@ class ValidatorTest {
     void 커스텀_구분자_형식_정상() {
         assertDoesNotThrow(() -> Validator.validateInput("//;\n1;2;3"));
     }
-
-    @Test
-    void 커스텀_구분자_형식_오류() {
-        assertThrows(IllegalArgumentException.class,
-                () -> Validator.validateInput("//;1;2;3"));
-    }
 }
