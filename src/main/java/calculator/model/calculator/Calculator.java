@@ -1,5 +1,6 @@
 package calculator.model.calculator;
 
+import calculator.util.ExceptionMessages;
 import java.util.Arrays;
 
 /**
@@ -11,7 +12,7 @@ public class Calculator {
 
     public static Result calculate(String[] tokens) {
         if (tokens == null || tokens.length == 0) {
-            throw new IllegalArgumentException("계산할 숫자가 없습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INPUT_EMPTY.get());
         }
 
         int sum = Arrays.stream(tokens)
@@ -23,17 +24,17 @@ public class Calculator {
 
     private static int parseAndValidate(String token) {
         if (token == null || token.isBlank()) {
-            throw new IllegalArgumentException("계산할 숫자가 없습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INPUT_EMPTY.get());
         }
 
         try {
             int number = Integer.parseInt(token);
             if (number < 0) {
-                throw new IllegalArgumentException("음수는 입력할 수 없습니다.");
+                throw new IllegalArgumentException(ExceptionMessages.NEGATIVE_NUMBER.get());
             }
             return number;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자 형식이 올바르지 않습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INVALID_NUMBER_FORMAT.get());
         }
     }
 }

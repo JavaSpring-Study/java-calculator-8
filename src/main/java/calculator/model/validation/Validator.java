@@ -1,5 +1,7 @@
 package calculator.model.validation;
 
+import calculator.util.ExceptionMessages;
+
 public class Validator {
 
     private Validator() {
@@ -13,7 +15,8 @@ public class Validator {
      */
     public static void validateInput(String input) {
         if (input == null) {
-            throw new IllegalArgumentException("입력값이 존재하지 않습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INPUT_NULL.get()
+            );
         }
 
         // 빈 문자열은 계산 결과 0으로 처리되므로 정상 처리

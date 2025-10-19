@@ -1,6 +1,7 @@
 package calculator.model.parser;
 
 import calculator.util.Constants;
+import calculator.util.ExceptionMessages;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class DelimiterParser {
 
         int newlineIndex = input.indexOf(Constants.CUSTOM_NEWLINE_ACTUAL.get());
         if (newlineIndex == -1) {
-            throw new IllegalArgumentException("커스텀 구분자 형식이 올바르지 않습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INVALID_CUSTOM_FORMAT.get());
         }
 
         String customDelimiter = input.substring(
@@ -58,16 +59,15 @@ public class DelimiterParser {
      * 커스텀 구분자 유효성 검사
      */
     private static void validateCustomDelimiter(String delimiter) {
-        // 전체가 비었거나, 공백이 포함된 경우
         if (delimiter.isBlank() || delimiter.contains(" ")) {
-            throw new IllegalArgumentException("공백은 구분자로 사용할 수 없습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INVALID_CUSTOM_WHITESPACE.get());
         }
 
         if (delimiter.contains(Constants.DEFAULT_DELIMITER_COMMA.get())
                 || delimiter.contains(Constants.DEFAULT_DELIMITER_COLON.get())
                 || delimiter.contains(Constants.CUSTOM_PREFIX.get())
                 || delimiter.contains(Constants.CUSTOM_NEWLINE_ACTUAL.get())) {
-            throw new IllegalArgumentException("예약어는 구분자로 사용할 수 없습니다.");
+            throw new IllegalArgumentException(ExceptionMessages.INVALID_CUSTOM_RESERVED.get());
         }
     }
 }
