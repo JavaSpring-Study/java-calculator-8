@@ -7,5 +7,6 @@ public class Application {
         String[] splitInput = StringSplitter.splitInput(input);
         int[] numbers = NumberParser.changeNumber(splitInput);
         int result = SumCalculator.sum(numbers);
+        OutputView.printResult(result);
     }
 }
