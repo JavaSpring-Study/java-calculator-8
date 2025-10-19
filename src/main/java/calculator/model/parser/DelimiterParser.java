@@ -11,14 +11,15 @@ public class DelimiterParser {
     private DelimiterParser() {}
 
     /**
-     * 입력값에서 사용할 구분자 목록을 반환한다
+     * 입력 문자열에서 구분자 목록과 본문(body)을 함께 추출한다
      *
      * @param input 전체 입력 문자열
-     * @return 기본 또는 커스텀 구분자 목록
+     * @return 구분자 목록과 본문을 담은 DelimiterParseResult
      */
-    public static List<String> parseDelimiters(String input) {
+    public static DelimiterParseResult parse(String input) {
         if (!input.startsWith("//")) {
-            return DEFAULT_DELIMITERS;
+            // 기본 구분자만 사용하는 경우
+            return new DelimiterParseResult(DEFAULT_DELIMITERS, input);
         }
 
         int newlineIndex = input.indexOf("\n");
@@ -27,11 +28,12 @@ public class DelimiterParser {
         }
 
         String customDelimiter = input.substring(2, newlineIndex);
-
         validateCustomDelimiter(customDelimiter);
 
-        // 기본 구분자 + 커스텀 구분자 함께 반환
-        return Arrays.asList(customDelimiter, ",", ":");
+        List<String> delimiters = Arrays.asList(customDelimiter, ",", ":");
+        String body = input.substring(newlineIndex + 1);
+
+        return new DelimiterParseResult(delimiters, body);
     }
 
     /**
