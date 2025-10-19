@@ -12,7 +12,7 @@
 ## 1. 기능 구현 목록
 
 ### 1. 입력
-- [ ] 콘솔에서 문자열을 입력받는다
+- [x] 콘솔에서 문자열을 입력받는다
   - `camp.nextstep.edu.missionutils.Console.readLine()`을 사용
   - 예: `"1,2:3"`
 
