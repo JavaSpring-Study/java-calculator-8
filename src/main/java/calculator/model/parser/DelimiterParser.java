@@ -1,12 +1,15 @@
 package calculator.model.parser;
 
+import calculator.util.Constants;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class DelimiterParser {
 
-    private static final List<String> DEFAULT_DELIMITERS = List.of(",", ":");
+    private static final List<String> DEFAULT_DELIMITERS = List.of(
+            Constants.DEFAULT_DELIMITER_COMMA.get(),
+            Constants.DEFAULT_DELIMITER_COLON.get()
+    );
 
     private DelimiterParser() {}
 
@@ -17,22 +20,35 @@ public class DelimiterParser {
      * @return 구분자 목록과 본문을 담은 DelimiterParseResult
      */
     public static DelimiterParseResult parse(String input) {
-        input = input.replace("\\n", "\n");
+        // 개행 문자 이스케이프 처리
+        input = input.replace(
+                Constants.CUSTOM_NEWLINE_ESCAPE.get(),
+                Constants.CUSTOM_NEWLINE_ACTUAL.get()
+        );
 
-        if (!input.startsWith("//")) {
-            // 기본 구분자만 사용하는 경우
+        // 커스텀 구분자가 없는 경우
+        if (!input.startsWith(Constants.CUSTOM_PREFIX.get())) {
             return new DelimiterParseResult(DEFAULT_DELIMITERS, input);
         }
 
-        int newlineIndex = input.indexOf("\n");
+        int newlineIndex = input.indexOf(Constants.CUSTOM_NEWLINE_ACTUAL.get());
         if (newlineIndex == -1) {
             throw new IllegalArgumentException("커스텀 구분자 형식이 올바르지 않습니다.");
         }
 
-        String customDelimiter = input.substring(2, newlineIndex);
+        String customDelimiter = input.substring(
+                Constants.CUSTOM_PREFIX.get().length(),
+                newlineIndex
+        );
+
         validateCustomDelimiter(customDelimiter);
 
-        List<String> delimiters = Arrays.asList(customDelimiter, ",", ":");
+        List<String> delimiters = Arrays.asList(
+                customDelimiter,
+                Constants.DEFAULT_DELIMITER_COMMA.get(),
+                Constants.DEFAULT_DELIMITER_COLON.get()
+        );
+
         String body = input.substring(newlineIndex + 1);
 
         return new DelimiterParseResult(delimiters, body);
@@ -47,21 +63,11 @@ public class DelimiterParser {
             throw new IllegalArgumentException("공백은 구분자로 사용할 수 없습니다.");
         }
 
-        // 예약어 포함 여부
-        if (delimiter.contains(",") || delimiter.contains(":") ||
-                delimiter.contains("//") || delimiter.contains("\n")) {
+        if (delimiter.contains(Constants.DEFAULT_DELIMITER_COMMA.get())
+                || delimiter.contains(Constants.DEFAULT_DELIMITER_COLON.get())
+                || delimiter.contains(Constants.CUSTOM_PREFIX.get())
+                || delimiter.contains(Constants.CUSTOM_NEWLINE_ACTUAL.get())) {
             throw new IllegalArgumentException("예약어는 구분자로 사용할 수 없습니다.");
         }
-    }
-
-    /**
-     * 구분자 선언부를 제외한 본문 문자열 반환
-     */
-    public static String extractBody(String input) {
-        if (!input.startsWith("//")) {
-            return input;
-        }
-        int newlineIndex = input.indexOf("\n");
-        return input.substring(newlineIndex + 1);
     }
 }

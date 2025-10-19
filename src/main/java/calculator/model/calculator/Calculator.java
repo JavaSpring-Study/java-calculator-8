@@ -22,6 +22,10 @@ public class Calculator {
     }
 
     private static int parseAndValidate(String token) {
+        if (token == null || token.isBlank()) {
+            throw new IllegalArgumentException("계산할 숫자가 없습니다.");
+        }
+
         try {
             int number = Integer.parseInt(token);
             if (number < 0) {

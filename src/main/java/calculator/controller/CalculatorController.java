@@ -1,7 +1,6 @@
 package calculator.controller;
 
 import calculator.model.calculator.Calculator;
-import calculator.model.calculator.Result;
 import calculator.model.parser.DelimiterParseResult;
 import calculator.model.parser.DelimiterParser;
 import calculator.model.parser.NumberParser;
@@ -14,16 +13,14 @@ import calculator.view.OutputView;
  */
 public class CalculatorController {
 
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
+
     public void run() {
-        String input = InputView.readInput();
-
+        String input = inputView.read();
         Validator.validateInput(input);
-
         DelimiterParseResult parsed = DelimiterParser.parse(input);
         String[] tokens = NumberParser.parse(parsed.getBody(), parsed.getDelimiters());
-
-        Result result = Calculator.calculate(tokens);
-
-        OutputView.printResult(result.getValue());
+        outputView.printResult(Calculator.calculate(tokens));
     }
 }

@@ -1,10 +1,11 @@
 package calculator.view;
 
+import calculator.model.calculator.Result;
+import calculator.util.Constants;
+
 public class OutputView {
 
-    private OutputView() {}
-
-    public static void printResult(int result) {
-        System.out.println("결과 : " + result);
+    public void printResult(Result result) {
+        System.out.println(Constants.RESULT_PREFIX.get() + result.getValue());
     }
 }
