@@ -1,7 +1,9 @@
 package calculator.model.parser;
 
+import calculator.util.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DelimiterParserTest {
@@ -29,15 +31,15 @@ class DelimiterParserTest {
 
     @Test
     void 공백_포함_예외() {
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
-                DelimiterParser.parse("// ;\n1;2;3"));
-        assertEquals("공백은 구분자로 사용할 수 없습니다.", e.getMessage());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> DelimiterParser.parse("// ;\n1;2;3"));
+        assertEquals(ExceptionMessages.INVALID_CUSTOM_WHITESPACE.get(), e.getMessage());
     }
 
     @Test
     void 예약어_포함_예외() {
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () ->
-                DelimiterParser.parse("////\n1,2,3"));
-        assertEquals("예약어는 구분자로 사용할 수 없습니다.", e.getMessage());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> DelimiterParser.parse("////\n1,2,3"));
+        assertEquals(ExceptionMessages.INVALID_CUSTOM_RESERVED.get(), e.getMessage());
     }
 }

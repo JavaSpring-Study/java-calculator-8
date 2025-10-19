@@ -1,5 +1,6 @@
 package calculator.model.validation;
 
+import calculator.util.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,8 +13,9 @@ class ValidatorTest {
 
     @Test
     void null_입력_예외() {
-        assertThrows(IllegalArgumentException.class,
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                 () -> Validator.validateInput(null));
+        assertEquals(ExceptionMessages.INPUT_NULL.get(), e.getMessage());
     }
 
     @Test

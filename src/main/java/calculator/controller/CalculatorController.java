@@ -16,8 +16,7 @@ public class CalculatorController {
 
     public void run() {
         String input = readInput();
-        String[] tokens = parseInput(input);
-        Result result = calculate(tokens);
+        Result result = processInput(input);
         printResult(result);
     }
 
@@ -26,20 +25,24 @@ public class CalculatorController {
         return inputView.read();
     }
 
-    /** 입력 검증 및 구분자/숫자 파싱 */
-    private String[] parseInput(String input) {
+    /** 입력 처리 로직 (공통 사용: run() + testRun()) */
+    private Result processInput(String input) {
         Validator.validateInput(input);
-        DelimiterParseResult parseResult = DelimiterParser.parse(input);
-        return NumberParser.parse(parseResult.getBody(), parseResult.getDelimiters());
-    }
 
-    /** 계산 로직 */
-    private Result calculate(String[] tokens) {
+        DelimiterParseResult parseResult = DelimiterParser.parse(input);
+        String[] tokens = NumberParser.parse(parseResult.getBody(), parseResult.getDelimiters());
+
         return Calculator.calculate(tokens);
     }
 
     /** 결과 출력 */
     private void printResult(Result result) {
         outputView.printResult(result);
+    }
+
+    /** 테스트 전용 메서드 (콘솔 I/O 배제) */
+    public String testRun(String input) {
+        Result result = processInput(input);
+        return "결과 : " + result.getValue();
     }
 }

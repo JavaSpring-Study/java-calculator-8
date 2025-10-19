@@ -1,7 +1,6 @@
 package calculator.model.parser;
 
 import calculator.util.ExceptionMessages;
-import java.util.Arrays;
 import java.util.List;
 
 public class NumberParser {
@@ -21,7 +20,7 @@ public class NumberParser {
 
         // 검증: 비숫자, 음수 체크
         for (String token : tokens) {
-            if (!token.matches("\\d+")) {
+            if (!token.matches("^-?\\d+$")) {  // 음수 기호 허용
                 throw new IllegalArgumentException(ExceptionMessages.INVALID_NUMBER_FORMAT.get());
             }
             if (Integer.parseInt(token) < 0) {

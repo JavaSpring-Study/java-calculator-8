@@ -1,5 +1,6 @@
 package calculator.model.parser;
 
+import calculator.util.ExceptionMessages;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,15 +24,17 @@ class NumberParserTest {
     @Test
     void 음수_입력_예외() {
         List<String> delimiters = List.of(",", ":");
-        assertThrows(IllegalArgumentException.class, () ->
-                NumberParser.parse("1,-2,3", delimiters));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> NumberParser.parse("1,-2,3", delimiters));
+        assertEquals(ExceptionMessages.NEGATIVE_NUMBER.get(), e.getMessage());
     }
 
     @Test
     void 비숫자_입력_예외() {
         List<String> delimiters = List.of(",", ":");
-        assertThrows(IllegalArgumentException.class, () ->
-                NumberParser.parse("1,a,3", delimiters));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> NumberParser.parse("1,a,3", delimiters));
+        assertEquals(ExceptionMessages.INVALID_NUMBER_FORMAT.get(), e.getMessage());
     }
 
     @Test
