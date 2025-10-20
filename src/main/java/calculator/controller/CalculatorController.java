@@ -4,6 +4,7 @@ import java.util.List;
 
 import calculator.domain.Separator;
 import calculator.view.Input;
+import calculator.view.Output;
 
 public class CalculatorController {
 	public void run(){
@@ -13,9 +14,10 @@ public class CalculatorController {
 		//Separator
 		Separator separator = new Separator(value);
 		List<Integer> numbers = separator.getNumbers();
-		System.out.println("numbers = " + numbers);
 
-
+		//print
+		Output output = new Output();
+		output.output(numbers);
 
 
 	}
