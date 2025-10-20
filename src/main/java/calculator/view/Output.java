@@ -10,6 +10,6 @@ public class Output {
 		for (Integer number : numbers) {
 			sum += number;
 		}
-		System.out.println(SuccessMessage.OUTPUT_MESSAGE + sum);
-	}
+		System.out.println(SuccessMessage.OUTPUT_MESSAGE + " " + sum);	}
 }
+
